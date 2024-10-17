@@ -6,7 +6,7 @@
 int read_line(FILE *fp) {
     static char buf[128];
     char *cp;
-    LNO = NULL, LABEL = NULL, OPcode = NULL, OPrand = NULL;
+    LNO = NULL, LABEL = NULL, OPcode = NULL, OPerand = NULL;
     do {
         if (!fgets(buf, sizeof(int), fp)) return -1;
         strcpy(LBUP, buf);
