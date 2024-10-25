@@ -1,3 +1,5 @@
+#include "symtab.h"
+
 #define MAX_OLEN 8
 #define MAX_OPTAB (sizeof(OPTAB) / sizeof(struct optab))
 
