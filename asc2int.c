@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "asc2int.h"
 #include "symtab.h"
 

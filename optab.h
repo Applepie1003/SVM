@@ -1,5 +1,3 @@
-#include "symtab.h"
-
 #define MAX_OLEN 8
 #define MAX_OPTAB (sizeof(OPTAB) / sizeof(struct optab))
 
@@ -9,6 +7,6 @@ typedef struct optab {
     unsigned char n_operand;
 } Optab;
 
-Optab OPTAB[];
+extern Optab OPTAB[];
 
-Optab *see_OPTAB(char *opc);
+extern Optab *see_OPTAB(char *opc);

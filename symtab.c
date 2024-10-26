@@ -13,8 +13,7 @@ int ins_SYMTAB(int value, char *sym) {
 }
 
 int see_SYMTAB(char *sym) {
-    int i;
-    for (i = 0; i < SYMTAB; i++) {
+    for (int i = 0; i < SYMCNT; i++) {
         if (!strcmp(SYMTAB[i].symbol, sym)) {
             return(SYMTAB[i].value);
         }

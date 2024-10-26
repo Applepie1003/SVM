@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
 #include <stdlib.h>
 
 #include "symtab.h"
@@ -8,8 +7,14 @@
 #include "asm_space.h"
 #include "asm_mnmo.h"
 #include "main.h"
+#include "put_list.h"
+#include "symtab.h"
+#include "str2int.h"
+#include "cal_mnmo.h"
 
-void OnePassAssemble(char *sfile) {
+
+void OnePassAssemble(char *sfile)
+{
     FILE *fp;
     Optab * op;
     Dctab * dp;
@@ -26,7 +31,7 @@ void OnePassAssemble(char *sfile) {
     if (OPerand && (LOC = str2int(OPcode)) < 0) {
         fprintf(stderr, "\n%s --> Start address is invalid ...\n", LBUF);
     }
-    int_SYM(LOC, LABEL);
+    ins_SYM(LOC, LABEL);
 
     put_list();
     LDaddr = G0addr = LOC;
@@ -59,8 +64,9 @@ void OnePassAssemble(char *sfile) {
     }
     if (OPerand) {G0addr = cal_mn_oprnd(OPerand);}
     else {OPerand = null_OPR;
-    LABEL = null_LBL;
-    put_list();
-    exit(10);
+        LABEL = null_LBL;
+        put_list();
+        exit(10);
+    }
 }
  

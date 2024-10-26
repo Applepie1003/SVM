@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
 #include "main.h"
 #include "dctab.h"
 #include "symtab.h"
+#include "str2int.h"
 
 int asm_space(Dctab *dp) {
     int len;

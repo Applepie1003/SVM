@@ -1,5 +1,10 @@
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "main.h"
 #include "asm_mnmo.h"
+#include "cal_mnmo.h"
+#include "optab.h"
 
 int asm_mnemonic(Optab *op) {
     char *obp = OBJC;
@@ -10,9 +15,9 @@ int asm_mnemonic(Optab *op) {
             fprintf(stderr, "%s ==> Operand is not define ...\n", LBUF), exit(10);
         }
         if (!strcmp(op->mnemonic, "DMPR")) {
-            obc |= cal_nm_dmpr(OPerand);
+            obc |= (cal_mn_dmpr(OPerand));
         } else {
-            obc |= cal_nm_oprnd(OPerand);
+            obc |= cal_mn_oprnd(OPerand);
         }
     }
     OBJC[0] = 4;
