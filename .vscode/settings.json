@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "optab.h": "c"
+        "optab.h": "c",
+        "symtab.h": "c"
     }
 }

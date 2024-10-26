@@ -12,6 +12,7 @@ typedef struct symtab
 } Symtab;
 
 extern int SYMCNT = 1;
+extern Symtab SYMTAB[MAX_SYM] = {"RND", RND_OPR, };
 
 extern int ins_SYMTAB(int value, char *sym) {}
 extern int see_SYMTAB(char *sym) {}

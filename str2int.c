@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "str2int.h"
+#include "symtab.h"
 
 int str2int(char *sp) {
     int l = strlen(sp);

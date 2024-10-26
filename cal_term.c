@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "cal_term.h"
 #include "main.h"
+#include "symtab.h"
 
 int cnv_one_term(char *term) {
     int val;
