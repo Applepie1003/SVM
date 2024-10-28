@@ -5,16 +5,16 @@
 #include "rdline.h"
 #include "optab.h"
 #include "dctab.h"
-#include "main.h"
 
 int read_line(FILE *fp) {
     static char buf[128];
     char *cp;
     LNO = NULL, LABEL = NULL, OPcode = NULL, OPerand = NULL;
+
     do {
         if (!fgets(buf, sizeof(int), fp)) return -1;
         strcpy(LBUF, buf);
-        if (cp = strstr(buf, "//")) *cp = 0;  
+        if (strstr(buf, "//")) *cp = 0;
     } while (!(cp = strtok(buf, " \t\n\r")));
     if (isdigit(*cp)) {
         LNO = cp;

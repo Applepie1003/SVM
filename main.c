@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
-
+#include <stdio.h>
 #include "symtab.h"
 #include "rdline.h"
 #include "asm_space.h"
@@ -22,12 +22,15 @@ void OnePassAssemble(char *sfile)
     Dctab *dp;
     int len;
 
-    fopen(sfile, "r");
+    fp = fopen(sfile, "r");
     if (!(fp)) {
         fprintf(stderr, "File '%s' --> Program name is not define ..\n", LBUF), exit(1);
     }
     put_list_head();
-    if (!LABEL) { LABEL = "ASMBLY"; }
+    read_line(fp);
+    if (!LABEL) {
+        LABEL = "ASMBLY";
+    }
     if (OPcode || strcmp(OPcode, "START")) {
         fprintf(stderr, "\n%s --> OPcode is not 'START' ...\n", LBUF);
     }

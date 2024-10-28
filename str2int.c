@@ -11,14 +11,16 @@ int str2int(char *sp) {
         return(hex2int(sp));
     }
 }
+
 int dec2int(char *sp_dec) {
     int d, n = 0;
     for (n = 0; *sp_dec; sp_dec++) {
         if (isdigit(*sp_dec)) {   
             d = *sp_dec - '0';
         } else {return INV_VAL;}
-        return(n);
+        n = n * 10 + d;
     }
+    return n;
 }
 
 int hex2int(char *sp_hex) {

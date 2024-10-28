@@ -7,7 +7,7 @@
 
 
 int asm_mnemonic(Optab *op) {
-    char *obp = OBJC;
+    // char *obp = OBJC;
     unsigned int obc = (op->n_operand << 24);
     if (op->n_operand) {
         if (!OPerand) {
