@@ -17,12 +17,13 @@ char *null_OPR = "      ";
 
 void OnePassAssemble(char *sfile)
 {
-    FILE *fp;
-    Optab * op;
-    Dctab * dp;
+    FILE* fp;
+    Optab *op;
+    Dctab *dp;
     int len;
 
-    if (!(fp = fopen(sfile, "r"))) {
+    fopen(sfile, "r");
+    if (!(fp)) {
         fprintf(stderr, "File '%s' --> Program name is not define ..\n", LBUF), exit(1);
     }
     put_list_head();
@@ -33,7 +34,7 @@ void OnePassAssemble(char *sfile)
     if (OPerand && (LOC = str2int(OPcode)) < 0) {
         fprintf(stderr, "\n%s --> Start address is invalid ...\n", LBUF);
     }
-    ins_SYM(LOC, LABEL);
+    ins_SYMTAB(LOC, LABEL);
 
     put_list();
     LDaddr = G0addr = LOC;
@@ -49,9 +50,13 @@ void OnePassAssemble(char *sfile)
                 fprintf(stderr, "\n%s --> Symbol '%s' is duplicated ...\n", LBUF, LABEL), exit(6);
             } 
         }
-        if ((op = see_OPTAB(OPcode))) {
+
+        op = see_OPTAB(OPcode);
+        dp = (Dctab* )see_OPTAB(OPcode);
+
+        if (op) {
             len = asm_mnemonic(op);
-        } else if ((dp = see_OPTAB(OPcode))) {
+        } else if (dp) {
             len = asm_space(dp);
         } else {
             fprintf(stderr, "\n%s --> Opcode '%s' is not valid ...\n", LBUF, OPcode), exit(6);

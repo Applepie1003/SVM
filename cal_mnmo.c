@@ -18,8 +18,9 @@ int cal_mn_dmpr(char *oprnd) {
 int cal_mn_oprnd(char *oprnd) {
     char buf[128], *xp;
     int opr;
-    strcpy(buf, oprnd); // oprnd를 buf에 초기화
-    xp = strchr(buf, '['); // 문자를 찾으면 찾은 문자열 포인터를 반환, 찾지 못하면
+    strcpy(buf, oprnd);
+
+    xp = strchr(buf, '[');
     if (xp != NULL) {
         if (strcmp(xp, "[X]"))
             fprintf(stderr, "%s --> Operand is not vaild ...\n", LBUF), exit(10);
@@ -27,6 +28,8 @@ int cal_mn_oprnd(char *oprnd) {
     }
     opr = cal_one_expr(buf);
     opr &= 0x007fffff;
-    if (xp) opr |= OP_XBIT;
+    if (xp) {
+        opr &= OP_XBIT;
+    }
     return(opr);
 }

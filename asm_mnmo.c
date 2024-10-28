@@ -5,15 +5,15 @@
 #include "asm_mnmo.h"
 #include "cal_mnmo.h"
 
+
 int asm_mnemonic(Optab *op) {
     char *obp = OBJC;
-    unsigned int obc;
-    obc = (op ->n_operand << 24);
+    unsigned int obc = (op->n_operand << 24);
     if (op->n_operand) {
         if (!OPerand) {
             fprintf(stderr, "%s ==> Operand is not define ...\n", LBUF), exit(10);
         }
-        if (!strcmp(op->mnemonic, "DMPR")) {
+        if (!strcmp(op->mneminic, "DMPR")) {
             obc |= (cal_mn_dmpr(OPerand));
         } else {
             obc |= cal_mn_oprnd(OPerand);

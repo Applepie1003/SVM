@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "optab.h"
-#include "symtab.h"
 
 Optab OPTAB[] = {
     "LDA",  0x00, 1,     "LDAW", 0x01, 1,   "LDAB", 0x02, 1,
