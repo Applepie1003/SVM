@@ -4,7 +4,6 @@
 #include "main.h"
 #include "asm_mnmo.h"
 #include "cal_mnmo.h"
-#include "optab.h"
 
 int asm_mnemonic(Optab *op) {
     char *obp = OBJC;

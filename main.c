@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -8,10 +7,13 @@
 #include "asm_mnmo.h"
 #include "main.h"
 #include "put_list.h"
-#include "symtab.h"
 #include "str2int.h"
 #include "cal_mnmo.h"
 
+int LOC = 1;
+char *null_LNO = "  ";
+char *null_LBL = "      ";
+char *null_OPR = "      ";
 
 void OnePassAssemble(char *sfile)
 {
@@ -47,9 +49,9 @@ void OnePassAssemble(char *sfile)
                 fprintf(stderr, "\n%s --> Symbol '%s' is duplicated ...\n", LBUF, LABEL), exit(6);
             } 
         }
-        if (op = see_OPTAB(OPcode)) {
+        if ((op = see_OPTAB(OPcode))) {
             len = asm_mnemonic(op);
-        } else if (dp = see_OPTAB(OPcode)) {
+        } else if ((dp = see_OPTAB(OPcode))) {
             len = asm_space(dp);
         } else {
             fprintf(stderr, "\n%s --> Opcode '%s' is not valid ...\n", LBUF, OPcode), exit(6);

@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <ctype.h>
 #include <string.h>
 #include "str2int.h"
@@ -21,6 +20,7 @@ int dec2int(char *sp_dec) {
         return(n);
     }
 }
+
 int hex2int(char *sp_hex) {
     int x, n;
     for (n = 0; *(sp_hex+1); sp_hex++) {

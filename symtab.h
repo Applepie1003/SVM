@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #define MAX_SYM 100
 #define MAX_SLEN (8+1)
 #define INV_VAL (-0x7fffffff)
@@ -11,8 +9,8 @@ typedef struct symtab
     int value;
 } Symtab;
 
-extern int SYMCNT = 1;
-extern Symtab SYMTAB[MAX_SYM] = {"RND", RND_OPR, };
+extern int SYMCNT;
+extern Symtab SYMTAB[MAX_SYM];
 
 extern int ins_SYMTAB(int value, char *sym);
 extern int see_SYMTAB(char *sym);
