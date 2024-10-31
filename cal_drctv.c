@@ -16,7 +16,8 @@ int cal_dc_oprnd(char * oprnd, int unit, unsigned char obj[]) {
     exp = strtok(buf, ",");
     do {
         if (++n > MAX_DNUM) {
-            fprintf(stderr, "%s --> Operand '%s' is not vaild ...\n", LBUF, oprnd), exit(11);
+            fprintf(stderr, "%s --> Operand '%s' is not vaild ...\n", LBUF, oprnd);
+            exit(11);
         }
         v = cal_one_expr(exp);
         switch (unit) {
@@ -25,7 +26,8 @@ int cal_dc_oprnd(char * oprnd, int unit, unsigned char obj[]) {
         case 2: *op = v >> 8;  op++, len++;
         case 1: *op = v;       op++, len++;
         }
-    } while (exp == strtok(NULL, ","));
+        exp = strtok(NULL, ",");
+    } while (exp);
         obj[0] = len;
         return(len);
 }
@@ -35,7 +37,8 @@ int cal_dc_oprnd_string(char *oprnd, unsigned char obj[]) {
         obj[i] = oprnd[i];
     }
     if (oprnd[i] != '\"' || !oprnd[i] || oprnd[i+1]) {
-        fprintf(stderr, "%s --> Operand '%s' is not vaild ...\n", LBUF, oprnd), exit(11);
+        fprintf(stderr, "%s --> Operand '%s' is not vaild ...\n", LBUF, oprnd);
+        exit(11);
     }
     obj[i] = '\0';
     obj[0] = i;

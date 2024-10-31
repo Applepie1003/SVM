@@ -16,9 +16,10 @@ int cal_one_expr(char *expr) {
     if ((sign = issign(*expr)) != 0) expr++;
     else sign = 1;
 
-
-    if (pp == strchr(expr, '+')) *pp = 0;
-    else if(mp == strchr(expr, '-')) *mp = 0;
+    pp = strchr(expr, '+');
+    mp = strchr(expr, '-');
+    if (pp) *pp = 0;
+    else if(mp) *mp = 0;
 
     if (pp) v2p = pp + 1;
     else if (mp) v2p = mp + 1;

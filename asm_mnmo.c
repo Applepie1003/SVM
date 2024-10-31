@@ -14,9 +14,9 @@ int asm_mnemonic(Optab *op) {
             fprintf(stderr, "%s ==> Operand is not define ...\n", LBUF), exit(10);
         }
         if (!strcmp(op->mneminic, "DMPR")) {
-            obc |= (cal_mn_dmpr(OPerand));
+            obc |= (cal_nm_dmpr(OPerand));
         } else {
-            obc |= cal_mn_oprnd(OPerand);
+            obc |= cal_nm_oprnd(OPerand);
         }
     }
     OBJC[0] = 4;

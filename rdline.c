@@ -12,7 +12,7 @@ int read_line(FILE *fp) {
     LNO = NULL, LABEL = NULL, OPcode = NULL, OPerand = NULL;
 
     do {
-        if (!fgets(buf, sizeof(int), fp)) return -1;
+        if (!fgets(buf, sizeof(buf), fp)) return -1;
         strcpy(LBUF, buf);
         if (strstr(buf, "//")) *cp = 0;
     } while (!(cp = strtok(buf, " \t\n\r")));
