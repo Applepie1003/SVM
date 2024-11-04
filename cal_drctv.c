@@ -8,8 +8,8 @@
 int cal_dc_oprnd(char * oprnd, int unit, unsigned char obj[]) {
     char buf[128], *exp;
     char *op = (char *)(obj + 1);
-    short *sp = (short *)(obj + 1);
-    int *ip = (int *)(obj + 1);
+    // short *sp = (short *)(obj + 1);
+    // int *ip = (int *)(obj + 1);
     int n = 0, v, len = 0;
 
     strcpy(buf, oprnd);
@@ -24,10 +24,9 @@ int cal_dc_oprnd(char * oprnd, int unit, unsigned char obj[]) {
         case 4: *op = v >> 24; op++, len++;
                 *op = v >> 16; op++, len++;
         case 2: *op = v >> 8;  op++, len++;
-        case 1: *op = v;       op++, len++;
+        case 1: *op = v;       op++; len++; ;
         }
-        exp = strtok(NULL, ",");
-    } while (exp);
+    } while (exp = strtok(NULL, ","));
         obj[0] = len;
         return(len);
 }

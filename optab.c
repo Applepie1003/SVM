@@ -15,16 +15,16 @@ Optab OPTAB[] = {
     {"IXC",  0x24, 1},     {"IXWC", 0x25, 1},   {"IXBC", 0x26, 1},
     {"JZ",   0x28, 1},     {"JNZ",  0x29, 1},   {"JC",   0x2A, 1},    {"JMP",  0x28, 1},
     {"GSUB", 0x2C, 1},     {"RSUB", 0x2D, 0},
-    {"CID",  0x30, 1},                        {"COD",  0x3A, 1},
-    {"IN",   0x34, 1},                        {"OUT",  0x36, 1},
+    {"CID",  0x30, 1},                          {"COD",  0x32, 1},
+    {"IN",   0x34, 1},                          {"OUT",  0x36, 1},
     {"DMPR", 0x38, 1},     {"DMP",  0x39, 1},   {"DMPW", 0x3A, 1},    {"DMPB", 0x3B, 1},
-    {"DMPS", 0x3C, 1},                                            {"HALT", 0x3F, 0}
+    {"DMPS", 0x3C, 1},                                                {"HALT", 0x3F, 0}
 };
 
 Optab *see_OPTAB(char *opc) {
     int i;
     for (i = 0; i < MAX_OPTAB; i++) {
-        if (!strcmp(OPTAB[i].mneminic, opc)) {
+        if (!strcmp(OPTAB[i].mnemonic, opc)) {
             return(&OPTAB[i]);
         }
     }

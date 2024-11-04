@@ -9,9 +9,15 @@
 
 int asm_space(Dctab *dp) {
     int len;
-    if(!OPerand) {
+
+    if (!OPerand) {
+        fprintf(stderr, "%s --> Operand is not define ...\n", LBUF);
+        exit(10);
+        }
+    if(dp->type == DC_RESV) {
         if ((!isdigit(OPerand[0]) && OPerand[strlen(OPerand) - 1] != 'h') || (len = str2int(OPerand)) == INV_VAL) {
-            fprintf(stderr, "%s --> Operand is not define...\n", LBUF), exit(10);
+            fprintf(stderr, "%s --> Operand number '%s' is not valid...\n", LBUF, OPerand);
+            exit(11);
         }
         len *= dp->unit;
         OBJC[0] = 0;

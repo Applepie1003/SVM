@@ -1,7 +1,9 @@
+
 #include <string.h>
 #include "symtab.h"
+
 int SYMCNT = 1;
-Symtab SYMTAB[MAX_SYM] = {{"RND", RND_OPR, } };
+Symtab SYMTAB[MAX_SYM] = {"RND", RND_OPR, };
 
 int ins_SYMTAB(int value, char *sym) {
     if (see_SYMTAB(sym) != INV_VAL) {
@@ -14,10 +16,11 @@ int ins_SYMTAB(int value, char *sym) {
 }
 
 int see_SYMTAB(char *sym) {
-    for (int i = 0; i < SYMCNT; i++) {
+    int i;
+    for (i = 0; i < SYMCNT; i++) {
         if (!strcmp(SYMTAB[i].symbol, sym)) {
             return(SYMTAB[i].value);
         }
-    } 
+    }
     return INV_VAL;
 }

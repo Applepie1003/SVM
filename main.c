@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "symtab.h"
 #include "rdline.h"
 #include "asm_space.h"
@@ -24,37 +25,55 @@ char *null_LNO = "  ";
 char *null_LBL = "      ";
 char *null_OPR = "      ";
 
+void OnePassAssemble(char *sfile);
+
+int main(int argc, char* argv[]) {
+        char *filename = argv[1];
+        OnePassAssemble((char *)filename);
+        return 0;
+}
+
+
 void OnePassAssemble(char *sfile)
 {
-    FILE *fp;
+    FILE  *fp;
     Optab *op;
     Dctab *dp;
-    int len;
+    int   len;
 
     fp = fopen(sfile, "r");
-    if (!(fp)) { // 파일이 존재하지 않으면 true
-        fprintf(stderr, "File '%s' --> Program name is not define ..\n", LBUF);
-        exit(1);
+    if (!(fp)) {
+        fprintf(stderr, "File '%s' --> Program name is not define ..\n", LBUF), exit(1);
     }
-    put_list_head(); // 해드를 출력
-    read_line(fp); // 코드를 한줄씩 읽어드린다
+    put_list_head();
+    read_line(fp);
     if (!LABEL) {
         LABEL = "ASMBLY";
     }
-    if (OPcode || strcmp(OPcode, "START")) {
+    if (!OPcode || strcmp(OPcode, "START")) {
         fprintf(stderr, "\n%s --> OPcode is not 'START' ...\n", LBUF);
+        exit(2);
     }
-    if (OPerand && (LOC = str2int(OPcode)) < 0) {
+
+    if (OPerand && (LOC = str2int(OPerand)) < 0) {
         fprintf(stderr, "\n%s --> Start address is invalid ...\n", LBUF);
+        exit(3);
     }
     ins_SYMTAB(LOC, LABEL);
-
+    if (!LNO) LNO = null_LNO;
+    if (!OPerand) OPerand = null_OPR;
     put_list();
     LDaddr = G0addr = LOC;
+
     while(read_line(fp) > 0) {
+
         if (!OPcode) {
             fprintf(stderr, "\n%s -->  OPcode is not define ...\n", LBUF);
             exit(5);
+        }
+
+        if(!strcmp(OPcode, "END")){
+                 break; // OPcode가 END면 반복문 탈출
         }
         if (LABEL) {
             if (strlen(LABEL) > MAX_SYM) {
@@ -64,34 +83,41 @@ void OnePassAssemble(char *sfile)
             if (!ins_SYMTAB(LOC, LABEL)) {
                 fprintf(stderr, "\n%s --> Symbol '%s' is duplicated ...\n", LBUF, LABEL);
                 exit(6);
-            } 
+            }
         }
 
         op = see_OPTAB(OPcode);
-        dp = see_DCTAB(OPcode);
+        dp = see_DCTAB(OPcode); // NULL
+
 
         if (op) {
             len = asm_mnemonic(op);
+                printf("len mnemonic 초기화\n");
         } else if (dp) {
             len = asm_space(dp);
+                printf("len space 초기화\n");
         } else {
             fprintf(stderr, "\n%s --> Opcode '%s' is not valid ...\n", LBUF, OPcode);
             exit(6);
         }
+
         if (!OPcode) {OPerand = null_OPR;}
         if (!LNO) {LABEL = null_LBL;}
         put_list();
         LOC += len;
     }
+        if(!(strcmp(OPcode, "END"))) printf("OPcode is END\n");
     if (!OPcode || strcmp(OPcode, "END")) {
         fprintf(stderr, " --> 'END' opcode is not define ...\n");
         exit(7);
     }
     if (OPerand) {G0addr = cal_nm_oprnd(OPerand);}
-    else {OPerand = null_OPR;
+    else {
+        OPerand = null_OPR;
         LABEL = null_LBL;
+        if(!LNO) LNO = null_LNO;
         put_list();
         exit(10);
     }
+        fclose(fp);
 }
- 

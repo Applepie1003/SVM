@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
 #include "cal_mnmo.h"
 #include "cal_expr.h"
 #include "main.h"
@@ -11,8 +12,7 @@ int cal_nm_dmpr(char *oprnd) {
     else if (!strcmp(oprnd, "U")) opr = 0x000001;
     else if (!strcmp(oprnd, "X")) opr = 0x000002;
     else if (!strcmp(oprnd, "A")) opr = 0x000003;
-    else fprintf(stderr, "%s --> Operand is not vaild ...\n", LBUF);
-         exit(10);
+    else fprintf(stderr, "%s --> Operand is not vaild ...\n", LBUF), exit(10);
     return(opr);
 }
 
@@ -21,8 +21,7 @@ int cal_nm_oprnd(char *oprnd) {
     int opr;
     strcpy(buf, oprnd);
 
-    xp = strchr(buf, '[');
-    if (xp != NULL) {
+    if (xp = strchr(buf, '[')) {
         if (strcmp(xp, "[X]"))
             fprintf(stderr, "%s --> Operand is not vaild ...\n", LBUF);
             exit(10);
@@ -31,7 +30,7 @@ int cal_nm_oprnd(char *oprnd) {
     opr = cal_one_expr(buf);
     opr &= 0x007fffff;
     if (xp) {
-        opr &= OP_XBIT;
+        opr |= OP_XBIT;
     }
     return(opr);
 }
