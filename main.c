@@ -88,14 +88,14 @@ void OnePassAssemble(char *sfile)
 
         op = see_OPTAB(OPcode);
         dp = see_DCTAB(OPcode); // NULL
-
+	printf("op: %s\ndp: %s\n", op, dp); 
 
         if (op) {
             len = asm_mnemonic(op);
-                printf("len mnemonic 초기화\n");
+            printf("len mnemonic 초기화\n");
         } else if (dp) {
             len = asm_space(dp);
-                printf("len space 초기화\n");
+            printf("len space 초기화\n");
         } else {
             fprintf(stderr, "\n%s --> Opcode '%s' is not valid ...\n", LBUF, OPcode);
             exit(6);
@@ -103,8 +103,10 @@ void OnePassAssemble(char *sfile)
 
         if (!OPcode) {OPerand = null_OPR;}
         if (!LNO) {LABEL = null_LBL;}
+	printf("\n");
         put_list();
         LOC += len;
+	printf("LOC += len -> LOC: %d\n", LOC);
     }
         if(!(strcmp(OPcode, "END"))) printf("OPcode is END\n");
     if (!OPcode || strcmp(OPcode, "END")) {

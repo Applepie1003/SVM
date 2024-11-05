@@ -7,9 +7,22 @@
 #include "optab.h"
 #include "dctab.h"
 
+char *cp;
+void trim_whitespace(char *str) {
+    char *end;
+    // 시작 부분 공백 제거
+    while (isspace((unsigned char)*str)) str++;
+    // 문자열 끝으로 이동
+    end = str + strlen(str) - 1;
+    // 끝 부분 공백 제거
+    while (end > str && isspace((unsigned char)*end)) end--;
+    // 문자열 종료 문자 추가
+    *(end + 1) = '\0';
+    cp = str;
+}
+
 int read_line(FILE *fp) {
     static char buf[128];
-    char *cp;
 
     LNO = NULL, LABEL = NULL, OPcode = NULL, OPerand = NULL;
 
@@ -19,27 +32,11 @@ int read_line(FILE *fp) {
         if (cp = strstr(buf, "//")) *cp = '\0';
     } while (!(cp = strtok(buf, " \t\n\r")));
 
-    int i, len;
-    if (isdigit(*cp)) {
-        i = 0, len = strlen(cp) -1;
-        while(isdigit(cp[i])) {
-                i++;
-        }
-        if(i == len) {
-                LNO = cp;
-                cp = strtok(NULL, " \t\n\r");
-        } else {
-                fprintf(stderr, "\n%s --> LNO must ne composed of numbers only\n", LBUF);
-                exit(4);
-        }
-        // LNO = cp;
-        // cp = strtok(NULL, " \t\n\r");
-    }
     if (isdigit(*cp)) {
         LNO = cp;
         cp = strtok(NULL, "\t\n\r");
         }
-
+    trim_whitespace(cp); 
     if (strcmp(cp, "END") && strcmp(cp, "START") && !see_OPTAB(cp) && !see_DCTAB(cp)) {
         LABEL = cp;
         cp = strtok(NULL, " \t\n\r");
