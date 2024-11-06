@@ -3,7 +3,7 @@
 #include "symtab.h"
 
 int SYMCNT = 1;
-Symtab SYMTAB[MAX_SYM] = {"RND", RND_OPR, };
+Symtab SYMTAB[MAX_SYM] = {{"RND", RND_OPR, }};
 
 int ins_SYMTAB(int value, char *sym) {
     if (see_SYMTAB(sym) != INV_VAL) {

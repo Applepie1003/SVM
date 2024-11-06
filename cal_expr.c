@@ -5,8 +5,7 @@
 
 int issign(char sign)
 {
-    if (sign == '+') {return 1;}
-    else return 0;
+    return (sign == '+') ? 1 : 0;
 }
 
 int cal_one_expr(char *expr) {

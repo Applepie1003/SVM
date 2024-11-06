@@ -66,7 +66,7 @@ void OnePassAssemble(char *sfile)
     LDaddr = G0addr = LOC;
 
     while(read_line(fp) > 0) {
-
+        printf("LBUF: %s\nLNO: %s, LABEL: %s, OPcode: %s, OPerand: %s\n", LBUF, LNO ? LNO: "NULL",LABEL ? LABEL : "NULL", OPcode ? OPcode : "NULL", OPerand ? OPerand : "NULL\n");
         if (!OPcode) {
             fprintf(stderr, "\n%s -->  OPcode is not define ...\n", LBUF);
             exit(5);
@@ -87,8 +87,17 @@ void OnePassAssemble(char *sfile)
         }
 
         op = see_OPTAB(OPcode);
-        dp = see_DCTAB(OPcode); // NULL
-	printf("op: %s\ndp: %s\n", op, dp); 
+        dp = see_DCTAB(OPcode);
+
+        // op, dp 값 출력
+        if (op == NULL && dp != NULL) {
+            printf("op: NULL dp: %s\n", dp); 
+        } else if(op != NULL && dp == NULL ) {
+            printf("op: %s dp: NULL\n", op); 
+        } else {
+            printf("op: NULL dp: NULL\n"); 
+        }
+	    
 
         if (op) {
             len = asm_mnemonic(op);
@@ -101,12 +110,17 @@ void OnePassAssemble(char *sfile)
             exit(6);
         }
 
-        if (!OPcode) {OPerand = null_OPR;}
-        if (!LNO) {LABEL = null_LBL;}
-	printf("\n");
+        if (!OPcode) {
+            OPerand = null_OPR;
+            printf("OPerand = null_OPR\n");
+            }
+        if (!LNO) {
+            LABEL = null_LBL;
+            printf("LABEL = null_LBL\n");
+        }
         put_list();
         LOC += len;
-	printf("LOC += len -> LOC: %d\n", LOC);
+        printf("\n");
     }
         if(!(strcmp(OPcode, "END"))) printf("OPcode is END\n");
     if (!OPcode || strcmp(OPcode, "END")) {

@@ -31,7 +31,7 @@ int read_line(FILE *fp) {
         strcpy(LBUF, buf); LBUF[strlen(LBUF)-1] = 0;
         if (cp = strstr(buf, "//")) *cp = '\0';
     } while (!(cp = strtok(buf, " \t\n\r")));
-
+    
     if (isdigit(*cp)) {
         LNO = cp;
         cp = strtok(NULL, "\t\n\r");
@@ -44,5 +44,6 @@ int read_line(FILE *fp) {
 
     OPcode = cp;  // 다음 토큰을 OPcode로 설정
     OPerand = strtok(NULL, " \t\n\r");  // 다음 토큰을 OPerand로 설정
+    printf("return 1\n");
     return 1;
 }
